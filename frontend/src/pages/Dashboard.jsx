@@ -4,13 +4,13 @@ import { useAuth } from '../contexts/AuthContext'
 import toast from 'react-hot-toast'
 
 const PIPELINE_STAGES = [
-  { key: 'formulario_enviado', label: 'Formulario Enviado', color: '#3B82F6', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
-  { key: 'analise_previa', label: 'Analise Previa', color: '#06B6D4', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
-  { key: 'enviado_seguradoras', label: 'Enviado Seguradoras', color: '#8B5CF6', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+  { key: 'formulario_enviado', label: 'Formulário Enviado', color: '#3B82F6', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a2 2 0 01.293.707V19a2 2 0 01-2 2z' },
+  { key: 'analise_previa', label: 'Análise Prévia', color: '#06B6D4', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
+  { key: 'enviado_seguradoras', label: 'Enviado às Seguradoras', color: '#8B5CF6', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
   { key: 'aguardando_propostas', label: 'Aguardando Propostas', color: '#F59E0B', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
   { key: 'propostas_recebidas', label: 'Propostas Recebidas', color: '#F97316', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' },
-  { key: 'em_negociacao', label: 'Em Negociacao', color: '#EC4899', icon: 'M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' },
-  { key: 'apolice_emitida', label: 'Apolice Emitida', color: '#10B981', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' }
+  { key: 'em_negociacao', label: 'Em Negociação', color: '#EC4899', icon: 'M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' },
+  { key: 'apolice_emitida', label: 'Apólice Emitida', color: '#10B981', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' }
 ]
 
 function getStageInfo(key) {
@@ -73,7 +73,7 @@ export default function Dashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl sm:text-2xl font-black text-white">Dashboard Admin</h1>
-          <p className="text-xs text-white/30 mt-0.5">Visao geral das cotacoes e operacoes</p>
+          <p className="text-xs text-white/30 mt-0.5">Visão geral das cotações e operações</p>
         </div>
         <button onClick={() => { setLoading(true); fetchStats() }}
           className="px-3 py-2 rounded-xl text-xs font-semibold text-white/50 hover:text-white border border-white/10 hover:border-white/20 transition-all">
@@ -101,13 +101,13 @@ export default function Dashboard() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <KpiCard label="Total Cotacoes" value={stats.totalLeads} color="text-sentinel" bg="bg-sentinel/10" border="border-sentinel/20"
-          icon="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        <KpiCard label="Ultimos 7 dias" value={stats.recentLeads} color="text-cyan-400" bg="bg-cyan-500/10" border="border-cyan-500/20"
+        <KpiCard label="Total Cotações" value={stats.totalLeads} color="text-sentinel" bg="bg-sentinel/10" border="border-sentinel/20"
+          icon="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a2 2 0 01.293.707V19a2 2 0 01-2 2z" />
+        <KpiCard label="Últimos 7 dias" value={stats.recentLeads} color="text-cyan-400" bg="bg-cyan-500/10" border="border-cyan-500/20"
           icon="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         <KpiCard label="Propostas Recebidas" value={stats.totalProposals} color="text-purple-400" bg="bg-purple-500/10" border="border-purple-500/20"
           icon="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-        <KpiCard label="Taxa Conversao" value={`${stats.taxaConversao}%`} color="text-emerald-400" bg="bg-emerald-500/10" border="border-emerald-500/20"
+        <KpiCard label="Taxa de Conversão" value={`${stats.taxaConversao}%`} color="text-emerald-400" bg="bg-emerald-500/10" border="border-emerald-500/20"
           icon="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
       </div>
 

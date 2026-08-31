@@ -162,13 +162,13 @@ export function StepNav({ step, totalSteps, stepNames, onPrev, onNext, onSubmit,
   return (
     <div className="flex justify-between mt-8 pt-4 border-t border-gray-100">
       {step > 0 ? (
-        <button onClick={onPrev} className="btn-secondary">Voltar</button>
+        <button onClick={onPrev} disabled={loading} className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed">Voltar</button>
       ) : <div />}
       {step < totalSteps - 1 && !isReview && (
-        <button onClick={onNext} className="btn-primary">Próximo</button>
+        <button onClick={onNext} disabled={loading} className="btn-primary">Próximo</button>
       )}
       {step === totalSteps - 1 && !isReview && (
-        <button onClick={() => onSubmit('review')} className="btn-primary">Revisar Dados</button>
+        <button onClick={() => onSubmit('review')} disabled={loading} className="btn-primary">Revisar Dados</button>
       )}
       {isReview && (
         <button onClick={() => onSubmit('send')} disabled={loading} className="btn-primary flex items-center gap-2">
@@ -297,7 +297,7 @@ export function SuccessScreen({ result, onReset, tipo }) {
     {
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />,
       label: 'Análise simultânea',
-      text: '7 seguradoras recebendo seus dados agora — Coface, Atradius, AVLA, Allianz Trade, AIG, CESCE e CHUBB',
+      text: 'Todas as seguradoras do mercado recebem seus dados para análise simultânea.',
     },
     {
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />,
@@ -362,7 +362,7 @@ export function SuccessScreen({ result, onReset, tipo }) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5" />
             </svg>
             <span className="text-sm text-white">
-              <strong className="text-cobre">{result?.cotacoesGeradas || 7} seguradoras</strong> recebendo seus dados agora
+              <strong className="text-cobre">Todas as seguradoras do mercado</strong> recebendo seus dados agora
             </span>
           </div>
         </div>
@@ -391,7 +391,7 @@ export function SuccessScreen({ result, onReset, tipo }) {
             </div>
             <div>
               <p className="text-xs font-bold text-navy">Prazo de resposta</p>
-              <p className="text-sm text-gray-600">Você receberá o comparativo completo em até <strong className="text-cobre">5 dias úteis</strong></p>
+              <p className="text-sm text-gray-600">Você receberá o comparativo completo <strong className="text-cobre">instantaneamente</strong></p>
             </div>
           </div>
 

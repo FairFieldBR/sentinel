@@ -4,13 +4,13 @@ import { useAuth } from '../contexts/AuthContext'
 import toast from 'react-hot-toast'
 
 const PIPELINE_STAGES = [
-  { key: 'formulario_enviado', label: 'Formulario Enviado', color: '#3B82F6' },
-  { key: 'analise_previa', label: 'Analise Previa', color: '#06B6D4' },
-  { key: 'enviado_seguradoras', label: 'Enviado Seguradoras', color: '#8B5CF6' },
+  { key: 'formulario_enviado', label: 'Formulário Enviado', color: '#3B82F6' },
+  { key: 'analise_previa', label: 'Análise Prévia', color: '#06B6D4' },
+  { key: 'enviado_seguradoras', label: 'Enviado às Seguradoras', color: '#8B5CF6' },
   { key: 'aguardando_propostas', label: 'Aguardando Propostas', color: '#F59E0B' },
   { key: 'propostas_recebidas', label: 'Propostas Recebidas', color: '#F97316' },
-  { key: 'em_negociacao', label: 'Em Negociacao', color: '#EC4899' },
-  { key: 'apolice_emitida', label: 'Apolice Emitida', color: '#10B981' }
+  { key: 'em_negociacao', label: 'Em Negociação', color: '#EC4899' },
+  { key: 'apolice_emitida', label: 'Apólice Emitida', color: '#10B981' }
 ]
 
 const DEFAULT_EMAIL_BODY = `Prezados,
@@ -160,13 +160,13 @@ export default function AdminQuotationDetail() {
     )
   }
 
-  if (!data) return <div className="text-center py-32 text-white/40">Cotacao nao encontrada</div>
+  if (!data) return <div className="text-center py-32 text-white/40">Cotação não encontrada</div>
 
   const currentStage = PIPELINE_STAGES.find(s => s.key === data.pipeline_status) || PIPELINE_STAGES[0]
   const currentStageIdx = PIPELINE_STAGES.findIndex(s => s.key === data.pipeline_status)
 
   const tabs = [
-    { key: 'overview', label: 'Visao Geral' },
+    { key: 'overview', label: 'Visão Geral' },
     { key: 'seguradoras', label: `Seguradoras (${(data.emailLogs || []).length})` },
     { key: 'propostas', label: `Propostas (${(data.propostas || []).length})` },
     { key: 'timeline', label: 'Timeline' },
@@ -191,10 +191,10 @@ export default function AdminQuotationDetail() {
             <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
               data.tipo === 'externo' ? 'bg-purple-500/15 text-purple-400' : 'bg-sentinel/10 text-sentinel'
             }`}>
-              {data.tipo === 'externo' ? 'Exportacao' : 'Interno'}
+              {data.tipo === 'externo' ? 'Exportação' : 'Interno'}
             </span>
           </div>
-          <p className="text-xs text-white/30 font-mono mt-1">{data.cnpj || ''} · Cotacao #{data.id}</p>
+          <p className="text-xs text-white/30 font-mono mt-1">{data.cnpj || ''} · Cotação #{data.id}</p>
           {data.user_email && <p className="text-xs text-white/30 mt-0.5">Cliente: {data.user_name || data.user_email}</p>}
         </div>
         <div className="flex items-center gap-2">
@@ -267,7 +267,7 @@ export default function AdminQuotationDetail() {
           <div className="bg-navy-light border border-white/[0.08] rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 animate-fadeIn">
             <h3 className="text-lg font-bold text-white mb-1">Enviar para Seguradoras</h3>
             <p className="text-xs text-white/30 mb-4">
-              Enviar ficha tecnica de <strong className="text-white/60">{data.razao_social}</strong> ({data.tipo === 'externo' ? 'Exportacao' : 'Interno'})
+              Enviar ficha técnica de <strong className="text-white/60">{data.razao_social}</strong> ({data.tipo === 'externo' ? 'Exportação' : 'Interno'})
             </p>
 
             {/* Select all / deselect */}
@@ -309,7 +309,7 @@ export default function AdminQuotationDetail() {
                       <p className="text-[10px] text-white/30 truncate">
                         {hasEmail
                           ? contacts.map(c => c.email).join(', ') || seg.email
-                          : 'Email nao cadastrado'}
+                          : 'E-mail não cadastrado'}
                       </p>
                     </div>
                   </label>
@@ -356,9 +356,9 @@ export default function AdminQuotationDetail() {
                   {/* Body */}
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-[10px] text-white/30 uppercase tracking-wider font-semibold">Corpo do Email</label>
+                      <label className="text-[10px] text-white/30 uppercase tracking-wider font-semibold">Corpo do e-mail</label>
                       <button onClick={() => { setEmailBody(DEFAULT_EMAIL_BODY); setEmailSubject(DEFAULT_EMAIL_SUBJECT) }}
-                        className="text-[9px] text-white/20 hover:text-white/40 transition-colors">Restaurar padrao</button>
+                        className="text-[9px] text-white/20 hover:text-white/40 transition-colors">Restaurar padrão</button>
                     </div>
                     <textarea rows={10}
                       className="w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-xs text-white placeholder-white/20 focus:outline-none focus:border-sentinel/30 font-mono leading-relaxed resize-y"
@@ -394,12 +394,12 @@ function OverviewTab({ data }) {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5 space-y-3">
         <h3 className="text-xs font-bold text-white/40 uppercase tracking-wider">Dados da Empresa</h3>
-        <InfoRow label="Razao Social" value={data.razao_social} />
+        <InfoRow label="Razão Social" value={data.razao_social} />
         <InfoRow label="CNPJ" value={data.cnpj} />
         <InfoRow label="Setor" value={data.setor} />
         <InfoRow label="UF" value={data.uf} />
         <InfoRow label="Contato" value={data.contato_nome} />
-        <InfoRow label="Email" value={data.contato_email} />
+        <InfoRow label="E-mail" value={data.contato_email} />
         <InfoRow label="Telefone" value={data.contato_telefone} />
       </div>
 
@@ -409,8 +409,8 @@ function OverviewTab({ data }) {
           <>
             <InfoRow label="% a Vista" value={data.condicoesVenda.pct_vista} />
             <InfoRow label="% a Prazo" value={data.condicoesVenda.pct_prazo} />
-            <InfoRow label="Prazo Medio" value={data.condicoesVenda.prazo_medio_dias ? `${data.condicoesVenda.prazo_medio_dias} dias` : null} />
-            <InfoRow label="Prazo Maximo" value={data.condicoesVenda.prazo_maximo_dias ? `${data.condicoesVenda.prazo_maximo_dias} dias` : null} />
+            <InfoRow label="Prazo Médio" value={data.condicoesVenda.prazo_medio_dias ? `${data.condicoesVenda.prazo_medio_dias} dias` : null} />
+            <InfoRow label="Prazo Máximo" value={data.condicoesVenda.prazo_maximo_dias ? `${data.condicoesVenda.prazo_maximo_dias} dias` : null} />
             <InfoRow label="Faturamento Desejado" value={data.condicoesVenda.faturamento_desejado_seguro} accent />
           </>
         ) : <p className="text-xs text-white/20">Nao informado</p>}

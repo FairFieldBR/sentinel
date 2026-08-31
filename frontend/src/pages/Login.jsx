@@ -192,7 +192,7 @@ export default function Login({ onComplete }) {
             Entrar com codigo de verificacao
           </button>
           <Link to="/register" className="text-sm text-white/40 hover:text-white/60 transition-colors">
-            Nao tem conta? <span className="text-sentinel font-semibold">Cadastre-se</span>
+            Não tem conta? <span className="text-sentinel font-semibold">Cadastre-se</span>
           </Link>
         </div>
       </form>
@@ -251,12 +251,12 @@ export default function Login({ onComplete }) {
             Entrar com email e senha
           </button>
           <Link to="/register" className="text-sm text-white/40 hover:text-white/60 transition-colors">
-            Nao tem conta? <span className="text-sentinel font-semibold">Cadastre-se</span>
+            Não tem conta? <span className="text-sentinel font-semibold">Cadastre-se</span>
           </Link>
         </div>
 
         <p className="text-[10px] text-white/20 text-center mt-3">
-          Enviaremos um codigo de verificacao para o e-mail informado. Seus dados sao protegidos pela LGPD.
+          Enviaremos um código de verificação para o e-mail informado. Seus dados são protegidos pela LGPD.
         </p>
       </form>
     )
@@ -286,7 +286,7 @@ export default function Login({ onComplete }) {
               <span className="text-amber-400 font-bold text-xs">MODO DESENVOLVIMENTO</span>
             </div>
             <div className="bg-amber-500/5 px-4 py-3">
-              <p className="text-xs text-amber-300/60 mb-2">SMTP nao configurado — codigo de teste:</p>
+              <p className="text-xs text-amber-300/60 mb-2">SMTP não configurado — código de teste:</p>
               <div className="bg-navy-dark border border-amber-500/20 rounded-lg p-3 text-center">
                 <p className="text-3xl font-mono font-bold text-amber-400 tracking-[0.4em]">{devInfo.code}</p>
               </div>
@@ -345,8 +345,8 @@ export default function Login({ onComplete }) {
         <h1 className="text-2xl sm:text-3xl font-black text-sentinel tracking-tight">SENTINEL</h1>
         <p className="text-white/40 text-sm mt-2">
           {mode === 'password'
-            ? 'Acesse sua conta de Seguro de Credito'
-            : 'Preencha seus dados para iniciar a cotacao de Seguro de Credito'}
+            ? 'Acesse sua conta de Seguro de Crédito'
+            : 'Preencha seus dados para iniciar a cotação de Seguro de Crédito'}
         </p>
       </div>
 

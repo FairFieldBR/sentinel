@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route, NavLink, useLocation, useNavigate, Link } fr
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import QuoteStaffRoute from './components/QuoteStaffRoute'
 import AdminRoute from './components/AdminRoute'
 import Home, { MiniShield } from './pages/Home'
 import Login from './pages/Login'
@@ -11,6 +12,8 @@ import NdaAcceptance from './pages/NdaAcceptance'
 import IntakeInterno from './pages/IntakeInterno'
 import IntakeExterno from './pages/IntakeExterno'
 import Dashboard from './pages/Dashboard'
+import QuickQuotes from './pages/QuickQuotes'
+import IcoverAdmin from './pages/IcoverAdmin'
 import SLA from './pages/SLA'
 import ICoverChat from './pages/ICoverChat'
 import ClientDashboard from './pages/ClientDashboard'
@@ -128,6 +131,7 @@ function UserDropdown() {
 function AppContent() {
   const location = useLocation()
   const { user, isAuthenticated, ndaAccepted, logout } = useAuth()
+  const isQuoteStaff = ['admin', 'broker'].includes(user?.role)
   const isAdmin = user?.role === 'admin'
   const isHome = location.pathname === '/'
   const isIntake = location.pathname.startsWith('/cotacao')
@@ -177,7 +181,7 @@ function AppContent() {
                 </h1>
               </div>
               <span className="hidden lg:block text-[10px] text-white/25 border-l border-white/10 pl-3 leading-tight uppercase tracking-wider">
-                Seguro de Credito
+                Seguro de Crédito
               </span>
             </NavLink>
 
@@ -185,7 +189,7 @@ function AppContent() {
               {isHome && !homeStarted && (
                 <a href="#iniciar" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('sentinel-iniciar')) }}
                   className="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gradient-to-r from-sentinel-dark to-sentinel text-navy-dark hover:shadow-lg hover:shadow-sentinel/20 hover:scale-[1.02] cursor-pointer"
-                >Iniciar Cotacao</a>
+                >Iniciar Cotação</a>
               )}
 
               {/* Meu Painel link for authenticated users */}
@@ -213,7 +217,15 @@ function AppContent() {
                   <NavLink to="/sla" className={({ isActive }) =>
                     `hidden md:inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
                   }>SLA</NavLink>
+                  <NavLink to="/admin/icover" className={({ isActive }) =>
+                    `hidden lg:inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
+                  }>iCover IA</NavLink>
                 </>
+              )}
+              {isQuoteStaff && (
+                <NavLink to="/admin/cotacoes-rapidas" className={({ isActive }) =>
+                  `hidden md:inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
+                }>Cotações rápidas</NavLink>
               )}
 
               {/* User dropdown */}
@@ -251,6 +263,8 @@ function AppContent() {
             <Route path="/cotacao/interno" element={<IntakeInterno />} />
             <Route path="/cotacao/externo" element={<IntakeExterno />} />
             <Route path="/dashboard" element={<AdminRoute><Dashboard /></AdminRoute>} />
+            <Route path="/admin/cotacoes-rapidas" element={<QuoteStaffRoute><QuickQuotes /></QuoteStaffRoute>} />
+            <Route path="/admin/icover" element={<AdminRoute><IcoverAdmin /></AdminRoute>} />
             <Route path="/sla" element={<AdminRoute><SLA /></AdminRoute>} />
             <Route path="/admin/seguradoras" element={<AdminRoute><SeguradorasManager /></AdminRoute>} />
             <Route path="/admin/cotacoes/:id" element={<AdminRoute><AdminQuotationDetail /></AdminRoute>} />
@@ -279,7 +293,7 @@ function AppContent() {
               </a>
               <span className="text-white/10">|</span>
               <span className="font-bold text-sentinel tracking-tight text-sm">SENTINEL</span>
-              <span className="text-white/25 text-xs">Seguro de Credito</span>
+              <span className="text-white/25 text-xs">Seguro de Crédito</span>
               <span className="text-white/10">·</span>
               <span className="font-bold text-white/60 tracking-tight text-sm">COVENANT</span>
               <span className="text-white/25 text-xs">Seguro Garantia</span>

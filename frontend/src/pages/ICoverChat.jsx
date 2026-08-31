@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { apiFetch } from '../config'
 import { MiniShield } from '../pages/Home'
-
 /* ─── CSS Animations ─── */
 const animationStyles = `
 @keyframes typingDot {
@@ -327,7 +327,7 @@ const KNOWLEDGE_BASE = [
   {
     keywords: ['como contratar', 'contratar', 'processo contratacao', 'etapas'],
     category: 'processo',
-    answer: `**Como Contratar Seguro de Crédito**\n\n**Etapas do processo:**\n\n**1. Diagnóstico Inicial**\n• Análise do perfil da empresa\n• Volume de vendas a prazo\n• Número de compradores\n• Histórico de inadimplência\n\n**2. Coleta de Documentação**\n• Balanço patrimonial (3 últimos anos)\n• DRE (Demonstrativo de Resultados)\n• Lista de compradores com limites desejados\n• Aging de recebíveis\n• Histórico de perdas (últimos 3-5 anos)\n\n**3. Cotação (5-10 dias)**\n• Envio do risco para seguradoras\n• Análise dos compradores\n• Proposta com condições e prêmio\n\n**4. Negociação**\n• Ajuste de PMI, POS, AAD\n• Definição de limites\n• Escolha de coberturas\n\n**5. Emissão da Apólice (3-5 dias)**\n• Aceite da proposta\n• Emissão e pagamento do prêmio\n• Ativação dos limites de crédito\n\n**Prazo total:** 15 a 30 dias\n\n💡 Pelo **SENTINEL**, o processo é mais rápido: cotação em **minutos** com comparação automática de seguradoras.`
+    answer: `**Como Contratar Seguro de Crédito**\n\n**Etapas do processo:**\n\n**1. Diagnóstico Inicial**\n• Análise do perfil da empresa\n• Volume de vendas a prazo\n• Número de compradores\n• Histórico de inadimplência\n\n**2. Coleta de Documentação**\n• Balanço patrimonial (3 últimos anos)\n• DRE (Demonstrativo de Resultados)\n• Lista de compradores com limites desejados\n• Aging de recebíveis\n• Histórico de perdas (últimos 3-5 anos)\n\n**3. Cotação**\n• Estudo comparativo do mercado: instantâneo\n• Proposta completa direto na seguradora: até 5 dias úteis\n\n**4. Negociação e Contratação**\n• Fairfield negocia as melhores condições\n• Empresa escolhe a melhor opção\n• Emissão da apólice`
   },
   {
     keywords: ['documentos', 'documentacao', 'papeis', 'o que precisa'],
@@ -337,7 +337,7 @@ const KNOWLEDGE_BASE = [
   {
     keywords: ['prazo analise', 'quanto tempo', 'demora', 'tempo aprovacao'],
     category: 'processo',
-    answer: `**Prazos no Seguro de Crédito**\n\n| Etapa | Prazo |\n|-------|-------|\n| Cotação | 5 a 10 dias úteis |\n| Análise de compradores | 2 a 5 dias por lote |\n| Emissão da apólice | 3 a 5 dias úteis |\n| Aprovação de novo limite | 24 a 72 horas |\n| Notificação de sinistro | Até 30 dias do vencimento |\n| Pagamento de indenização | 30 a 60 dias após mora |\n\n**Pelo SENTINEL:**\n• Cotação comparativa: **minutos**\n• Proposta preliminar: **24 horas**\n• Emissão: **2-3 dias**\n\n**Dica:** Quanto mais completa a documentação, mais rápido o processo.`
+    answer: `**Prazos no Seguro de Crédito**\n\n| Etapa | Prazo |\n|-------|-------|\n| Estudo comparativo do mercado | Instantâneo |\n| Proposta completa na seguradora | Até 5 dias úteis |\n| Análise de compradores | 2 a 5 dias por lote |\n| Emissão da apólice | 3 a 5 dias úteis |\n| Aprovação de novo limite | 24 a 72 horas |\n| Notificação de sinistro | Até 30 dias do vencimento |\n| Pagamento de indenização | 30 a 60 dias após mora |`
   },
   {
     keywords: ['renovacao', 'renovar', 'vencimento apolice', 'vigencia', 'vigencia apolice', 'duracao apolice', 'validade apolice', 'prazo apolice'],
@@ -1627,7 +1627,7 @@ Fui desenvolvido pela **Fairfield** com o conhecimento mais profundo e abrangent
 • Estratégias inovadoras e soluções sob medida
 • Legislação e regulamentação (SUSEP, CVM, CNSP)
 • Análise de grandes riscos e operações complexas
-• 7 seguradoras comparadas em detalhes
+• Todas as seguradoras do mercado comparadas em detalhes
 
 Pergunte-me qualquer coisa sobre **Seguro de Crédito** — eu tenho a resposta. 🎯`
 
@@ -1669,11 +1669,34 @@ export default function ICoverChat() {
     { id: 1, sender: 'bot', text: 'Olá! Sou da equipe de especialistas da Fairfield. Como posso te ajudar?' }
   ])
   const [supportInput, setSupportInput] = useState('')
+  const [conversation, setConversation] = useState(null)
+  const conversationRef = useRef(null)
+  const [conversationError, setConversationError] = useState(null)
 
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
   const supportInputRef = useRef(null)
   const supportEndRef = useRef(null)
+
+  const startConversation = useCallback(async () => {
+    if (conversationRef.current) return conversationRef.current
+    const response = await apiFetch('/api/v1/icover/conversations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mode: 'public' }),
+    })
+    if (!response.sucesso || !response.data?.id || !response.data?.publicToken) {
+      throw new Error(response.mensagem || 'Não foi possível iniciar o iCover')
+    }
+    conversationRef.current = response.data
+    setConversation(response.data)
+    setConversationError(null)
+    return response.data
+  }, [])
+
+  useEffect(() => {
+    startConversation().catch(error => setConversationError(error.message))
+  }, [startConversation])
 
   // Auto-scroll chat
   useEffect(() => {
@@ -1685,9 +1708,9 @@ export default function ICoverChat() {
     supportEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [supportMessages])
 
-  const handleSend = useCallback((text) => {
+  const handleSend = useCallback(async (text) => {
     const trimmed = (text || input).trim()
-    if (!trimmed) return
+    if (!trimmed || isTyping) return
 
     const userMsg = { id: Date.now(), sender: 'user', text: trimmed }
     setMessages(prev => [...prev, userMsg])
@@ -1695,14 +1718,39 @@ export default function ICoverChat() {
     setShowSuggestions(false)
     setIsTyping(true)
 
-    // Simulate thinking delay
-    setTimeout(() => {
-      const { answer, category } = findAnswer(trimmed, messages)
-      const botMsg = { id: Date.now() + 1, sender: 'bot', text: answer, category }
-      setMessages(prev => [...prev, botMsg])
+    try {
+      const activeConversation = conversationRef.current || await startConversation()
+      const response = await apiFetch(`/api/v1/icover/conversations/${activeConversation.id}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-iCover-Token': activeConversation.publicToken,
+        },
+        body: JSON.stringify({ message: trimmed }),
+      })
+      if (!response.sucesso || !response.data?.message?.content) {
+        throw new Error(response.mensagem || 'O iCover não conseguiu responder agora.')
+      }
+      setMessages(prev => [...prev, {
+        id: Date.now() + 1,
+        sender: 'bot',
+        text: response.data.message.content,
+        category: 'ia',
+        sources: response.data.sources || [],
+      }])
+      setConversationError(null)
+    } catch (error) {
+      setConversationError(error.message)
+      setMessages(prev => [...prev, {
+        id: Date.now() + 1,
+        sender: 'bot',
+        text: 'Não consegui responder agora. Tente novamente em instantes ou fale com um especialista Fairfield.',
+        category: 'erro',
+      }])
+    } finally {
       setIsTyping(false)
-    }, 800 + Math.random() * 600)
-  }, [input, messages])
+    }
+  }, [input, isTyping, startConversation])
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -1771,9 +1819,9 @@ export default function ICoverChat() {
             <div className="flex items-center gap-2">
               <h1 className="text-sm font-semibold text-white">iCover</h1>
               {/* Online badge */}
-              <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-green" />
-                <span className="text-[9px] text-emerald-400 font-medium">Online</span>
+              <span className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full border ${conversationError ? 'bg-rose-500/10 border-rose-500/20' : conversation ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-amber-500/10 border-amber-500/20'}`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${conversationError ? 'bg-rose-400' : conversation ? 'bg-emerald-400 pulse-green' : 'bg-amber-400 animate-pulse'}`} />
+                <span className={`text-[9px] font-medium ${conversationError ? 'text-rose-400' : conversation ? 'text-emerald-400' : 'text-amber-400'}`}>{conversationError ? 'Indisponível' : conversation ? 'Online' : 'Conectando'}</span>
               </span>
             </div>
             <p className="text-[11px] text-white/40 truncate">IA Especialista em Seguro de Crédito</p>

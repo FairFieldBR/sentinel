@@ -4,13 +4,13 @@ import { useAuth } from '../contexts/AuthContext'
 import { MiniShield } from './Home'
 
 const PIPELINE_STAGES = [
-  { key: 'formulario_enviado', label: 'Formulario Enviado', color: 'bg-blue-500', textColor: 'text-blue-400', borderColor: 'border-blue-500/30', bgLight: 'bg-blue-500/10' },
-  { key: 'analise_previa', label: 'Analise Previa iCover', color: 'bg-cyan-500', textColor: 'text-cyan-400', borderColor: 'border-cyan-500/30', bgLight: 'bg-cyan-500/10' },
-  { key: 'enviado_seguradoras', label: 'Enviado as Seguradoras', color: 'bg-purple-500', textColor: 'text-purple-400', borderColor: 'border-purple-500/30', bgLight: 'bg-purple-500/10' },
+  { key: 'formulario_enviado', label: 'Formulário Enviado', color: 'bg-blue-500', textColor: 'text-blue-400', borderColor: 'border-blue-500/30', bgLight: 'bg-blue-500/10' },
+  { key: 'analise_previa', label: 'Análise Prévia iCover', color: 'bg-cyan-500', textColor: 'text-cyan-400', borderColor: 'border-cyan-500/30', bgLight: 'bg-cyan-500/10' },
+  { key: 'enviado_seguradoras', label: 'Enviado às Seguradoras', color: 'bg-purple-500', textColor: 'text-purple-400', borderColor: 'border-purple-500/30', bgLight: 'bg-purple-500/10' },
   { key: 'aguardando_propostas', label: 'Aguardando Propostas', color: 'bg-yellow-500', textColor: 'text-yellow-400', borderColor: 'border-yellow-500/30', bgLight: 'bg-yellow-500/10' },
   { key: 'propostas_recebidas', label: 'Propostas Recebidas', color: 'bg-orange-500', textColor: 'text-orange-400', borderColor: 'border-orange-500/30', bgLight: 'bg-orange-500/10' },
-  { key: 'em_negociacao', label: 'Em Negociacao', color: 'bg-pink-500', textColor: 'text-pink-400', borderColor: 'border-pink-500/30', bgLight: 'bg-pink-500/10' },
-  { key: 'apolice_emitida', label: 'Apolice Emitida', color: 'bg-emerald-500', textColor: 'text-emerald-400', borderColor: 'border-emerald-500/30', bgLight: 'bg-emerald-500/10' },
+  { key: 'em_negociacao', label: 'Em Negociação', color: 'bg-pink-500', textColor: 'text-pink-400', borderColor: 'border-pink-500/30', bgLight: 'bg-pink-500/10' },
+  { key: 'apolice_emitida', label: 'Apólice Emitida', color: 'bg-emerald-500', textColor: 'text-emerald-400', borderColor: 'border-emerald-500/30', bgLight: 'bg-emerald-500/10' },
 ]
 
 function getStageInfo(stageKey) {
@@ -103,16 +103,16 @@ export default function ClientDashboard() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-black text-white">
-              Ola, <span className="text-sentinel">{firstName}</span>
+              Olá, <span className="text-sentinel">{firstName}</span>
             </h1>
-            <p className="text-sm text-white/40 mt-1">Acompanhe suas cotacoes de Seguro de Credito</p>
+            <p className="text-sm text-white/40 mt-1">Acompanhe suas cotações de Seguro de Crédito</p>
           </div>
           <Link to="/cotacao/interno"
             className="btn-primary inline-flex items-center gap-2 text-sm self-start sm:self-auto">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
-            Nova Cotacao
+            Nova Cotação
           </Link>
         </div>
       </div>
@@ -121,7 +121,7 @@ export default function ClientDashboard() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
         <StatCard
           icon={<svg className="w-5 h-5 text-sentinel" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}
-          label="Total Cotacoes" value={stats.total} accent />
+          label="Total Cotações" value={stats.total} accent />
         <StatCard
           icon={<svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
           label="Em Andamento" value={stats.emAndamento} />
@@ -130,7 +130,7 @@ export default function ClientDashboard() {
           label="Concluidas" value={stats.concluidas} />
         <StatCard
           icon={<svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>}
-          label="Score Medio iCover" value={stats.scoreMedio || '—'} />
+          label="Score Médio iCover" value={stats.scoreMedio || '—'} />
       </div>
 
       {/* Quotation Cards */}
@@ -144,15 +144,15 @@ export default function ClientDashboard() {
           <div className="w-20 h-20 rounded-full bg-sentinel/5 border border-sentinel/15 flex items-center justify-center mx-auto mb-6">
             <MiniShield size={40} />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2">Nenhuma cotacao ainda</h2>
+          <h2 className="text-xl font-bold text-white mb-2">Nenhuma cotação ainda</h2>
           <p className="text-white/40 text-sm mb-8 max-w-md mx-auto">
-            Voce ainda nao tem cotacoes. Inicie sua primeira cotacao de Seguro de Credito e receba uma analise iCover em segundos.
+            Você ainda não tem cotações. Inicie sua primeira cotação de Seguro de Crédito e receba uma análise iCover em segundos.
           </p>
           <Link to="/cotacao/interno" className="btn-primary inline-flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
-            Iniciar Primeira Cotacao
+            Iniciar Primeira Cotação
           </Link>
         </div>
       ) : (
@@ -176,7 +176,7 @@ export default function ClientDashboard() {
                     ? 'bg-purple-500/15 text-purple-400 border border-purple-500/25'
                     : 'bg-sentinel/10 text-sentinel border border-sentinel/25'
                 }`}>
-                  {q.type === 'externo' || q.tipo === 'exportacao' ? 'Exportacao' : 'Interno'}
+                  {q.type === 'externo' || q.tipo === 'exportacao' ? 'Exportação' : 'Interno'}
                 </span>
               </div>
 

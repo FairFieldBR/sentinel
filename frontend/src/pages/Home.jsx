@@ -28,13 +28,11 @@ function AnimCounter({ end, suffix = '', prefix = '' }) {
 /* ─── Processing text cycle ─── */
 function useProcessingText() {
   const texts = [
-    "Analisando perfil da empresa...",
-    "Consultando Coface...",
-    "Consultando Atradius...",
-    "Consultando AVLA...",
-    "Consultando Allianz Trade...",
+    "Analisando o perfil da empresa...",
+    "Consultando o mercado segurador...",
     "Comparando coberturas...",
-    "Melhor oferta identificada!",
+    "Avaliando condições...",
+    "Recomendando a melhor condição...",
   ]
   const [idx, setIdx] = useState(0)
   useEffect(() => {
@@ -555,7 +553,7 @@ export default function Home() {
                   <span className="bg-gradient-to-r from-sentinel to-sentinel-light bg-clip-text text-transparent">SENTINEL</span>
                 </h1>
                 <p className="text-lg sm:text-xl font-medium text-white/50 mb-6 leading-relaxed max-w-lg">
-                  Nossa plataforma analisa o perfil da sua empresa e consulta simultaneamente todas as seguradoras do mercado, garantindo a <strong className="text-cobre">melhor opcao em seguro de credito</strong> para o seu negocio.
+                  Nossa plataforma analisa o perfil da sua empresa e consulta simultaneamente todas as seguradoras do mercado, garantindo a <strong className="text-cobre">melhor opção em seguro de crédito</strong> para o seu negócio.
                 </p>
                 <button
                   onClick={() => { setStarted(true); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
@@ -564,12 +562,12 @@ export default function Home() {
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  Iniciar Cotacao
+                  Iniciar Cotação
                   <span className="absolute -top-2 -right-2 bg-accent-emerald text-navy-dark text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse">
-                    Gratis
+                    Grátis
                   </span>
                 </button>
-                <p className="text-white/20 text-xs mt-4">Sem compromisso · Resultado em ate 5 dias uteis</p>
+                <p className="text-white/20 text-xs mt-4">Sem compromisso · Resultado instantâneo</p>
               </div>
 
               {/* Right: Animated Tech Shield */}
@@ -596,14 +594,14 @@ export default function Home() {
                   Resultados Comprovados
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white">Por que escolher o SENTINEL</h2>
-                <p className="text-white/30 text-sm mt-2">Numeros que falam por si — tecnologia que transforma.</p>
+                <p className="text-white/30 text-sm mt-2">Números que falam por si — tecnologia que transforma.</p>
               </div>
 
               {/* Stats row */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
                 {[
                   {
-                    val: 7, suffix: '', label: 'Seguradoras conectadas',
+                    value: 'Consultamos todas as seguradoras do mercado', label: '',
                     icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>,
                     gradient: 'from-sentinel to-sentinel-light',
                     iconClass: 'bg-sentinel/10 border border-sentinel/20 text-sentinel shadow-lg shadow-sentinel/5'
@@ -615,26 +613,26 @@ export default function Home() {
                     iconClass: 'bg-cobre/10 border border-cobre/20 text-cobre shadow-lg shadow-cobre/5'
                   },
                   {
-                    val: 98, suffix: '%', label: 'Satisfacao dos clientes',
+                    val: 98, suffix: '%', label: 'Satisfação dos clientes',
                     icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>,
                     gradient: 'from-accent-emerald to-emerald-300',
                     iconClass: 'bg-accent-emerald/10 border border-accent-emerald/20 text-accent-emerald shadow-lg shadow-accent-emerald/5'
                   },
                   {
-                    val: 5, suffix: ' dias', label: 'Prazo de entrega',
+                    value: 'Instantâneo', label: 'Prazo de entrega',
                     icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
                     gradient: 'from-accent-violet to-violet-300',
                     iconClass: 'bg-accent-violet/10 border border-accent-violet/20 text-accent-violet shadow-lg shadow-accent-violet/5'
                   },
                 ].map((s) => (
-                  <div key={s.label} className="text-center group">
+                  <div key={s.label || s.value} className="text-center group">
                     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4 ${s.iconClass}`}>
                       {s.icon}
                     </div>
-                    <p className="text-3xl sm:text-4xl font-black text-white">
-                      <AnimCounter end={s.val} suffix={s.suffix} />
+                    <p className={`font-black text-white ${s.value ? 'text-xl sm:text-2xl leading-tight' : 'text-3xl sm:text-4xl'}`}>
+                      {s.value || <AnimCounter end={s.val} suffix={s.suffix} />}
                     </p>
-                    <p className="text-xs sm:text-sm text-white/40 mt-2 font-medium">{s.label}</p>
+                    {s.label && <p className="text-xs sm:text-sm text-white/40 mt-2 font-medium">{s.label}</p>}
                   </div>
                 ))}
               </div>
@@ -648,19 +646,19 @@ export default function Home() {
                   {
                     icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
                     title: '100% Gratuito',
-                    text: 'O estudo de mercado SENTINEL e totalmente gratuito. Atuamos como suporte adicional a sua area de credito.',
+                    text: 'O estudo de mercado SENTINEL é totalmente gratuito. Buscamos a melhor condição do mercado sem que você tenha que pagar a mais por isso.',
                     color: 'emerald', borderColor: 'border-l-accent-emerald/50', iconBg: 'bg-accent-emerald/10 text-accent-emerald border-accent-emerald/20'
                   },
                   {
-                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
-                    title: 'Decisao Estrategica',
-                    text: 'Seus dados geram um estudo de mercado completo — determinante para a estrategia de credito da sua empresa.',
+                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
+                    title: 'Decisão Estratégica',
+                    text: 'Seus dados geram um estudo de mercado completo que poderá ser determinante para a estratégia de crédito da sua empresa.',
                     color: 'sentinel', borderColor: 'border-l-sentinel/50', iconBg: 'bg-sentinel/10 text-sentinel border-sentinel/20'
                   },
                   {
                     icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
-                    title: 'IA + Inteligencia de Mercado',
-                    text: 'O SENTINEL processa seu perfil com IA e cruza dados de 7 seguradoras para recomendar a melhor solucao.',
+                    title: 'Inteligência de Mercado Fairfield',
+                    text: 'O SENTINEL processa seu perfil com a inteligência proprietária da Fairfield e recomenda a melhor condição custo-benefício.',
                     color: 'cobre', borderColor: 'border-l-cobre/50', iconBg: 'bg-cobre/10 text-cobre border-cobre/20'
                   },
                 ].map((p) => (
@@ -689,7 +687,7 @@ export default function Home() {
                 Smart Credit Engine
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-white">Como funciona o SENTINEL</h2>
-              <p className="text-white/30 text-sm mt-2">Tres etapas. Uma plataforma. A melhor solucao de credito.</p>
+              <p className="text-white/30 text-sm mt-2">Três etapas. Uma plataforma. A melhor solução de crédito.</p>
             </div>
 
             {/* 3-Step Flow with connected lines */}
@@ -727,8 +725,8 @@ export default function Home() {
                     <svg className="h-7 w-7 text-sentinel" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                   </div>
                   <h3 className="text-sm font-bold text-white mb-1">Seus Dados</h3>
-                  <p className="text-[11px] text-white/30 mb-3">Preencha as informacoes da empresa</p>
-                  <AnimatedChecklist items={["CNPJ / Razao Social", "Faturamento e Carteira", "Historico de Perdas", "Amostra de Compradores"]} />
+                  <p className="text-[11px] text-white/30 mb-3">Preencha as informações da empresa</p>
+                  <AnimatedChecklist items={["CNPJ / Razão Social", "Faturamento e Carteira", "Histórico de Perdas", "Amostra de Compradores"]} />
                 </div>
 
                 {/* Step 2 — Engine */}
@@ -801,8 +799,8 @@ export default function Home() {
                       )))}
                     </svg>
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">SENTINEL Analisa</h3>
-                  <p className="text-[11px] text-white/30 mb-3">IA consulta simultaneamente</p>
+                  <h3 className="text-sm font-bold text-white mb-1">Ferramenta de análise da Fairfield</h3>
+                  <p className="text-[11px] text-white/30 mb-3">Consulta simultaneamente todas as seguradoras do mercado</p>
 
                   {/* Console mini */}
                   <div className="rounded-lg bg-navy-dark/60 border border-white/[0.06] p-2.5 mb-3 max-w-[260px] mx-auto">
@@ -838,22 +836,16 @@ export default function Home() {
                   <div className="w-[72px] h-[72px] rounded-2xl bg-accent-emerald/10 border border-accent-emerald/20 flex items-center justify-center mx-auto mb-4">
                     <svg className="h-7 w-7 text-accent-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">Melhor Oferta</h3>
-                  <p className="text-[11px] text-white/30 mb-3">Resultado otimizado para voce</p>
+                  <h3 className="text-sm font-bold text-white mb-1">Melhor Condição</h3>
+                  <p className="text-[11px] text-white/30 mb-3">Resultado otimizado para você</p>
                   <div className="space-y-2 max-w-[220px] mx-auto">
                     <div className="p-2.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-left">
                       <span className="text-[9px] text-white/25 block">Comparativo</span>
-                      <span className="text-xs font-bold text-accent-emerald">7 seguradoras analisadas</span>
+                      <span className="text-xs font-bold text-accent-emerald">Todas as seguradoras do mercado</span>
                     </div>
-                    <div className="flex gap-1.5">
-                      <div className="flex-1 p-2 rounded-lg bg-white/[0.04] border border-white/[0.06] text-left">
-                        <span className="text-[8px] text-white/25 block">Prazo</span>
-                        <span className="text-[11px] font-bold text-white">5 dias</span>
-                      </div>
-                      <div className="flex-1 p-2 rounded-lg bg-white/[0.04] border border-white/[0.06] text-left">
-                        <span className="text-[8px] text-white/25 block">Economia</span>
-                        <span className="text-[11px] font-bold text-accent-emerald">-30%</span>
-                      </div>
+                    <div className="p-2 rounded-lg bg-white/[0.04] border border-white/[0.06] text-left">
+                      <span className="text-[8px] text-white/25 block">Prazo</span>
+                      <span className="text-[11px] font-bold text-white">Instantâneo</span>
                     </div>
                   </div>
                 </div>
@@ -894,7 +886,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-white/40 text-base sm:text-lg leading-relaxed mb-6">
-              A Fairfield atua como <strong className="text-white/70">consultoria em Seguro de Credito 100% independente</strong> — nao representamos nenhuma seguradora. O <strong className="text-sentinel">SENTINEL</strong> e nossa plataforma proprietaria que combina <strong className="text-white/70">inteligencia artificial</strong> com decadas de experiencia no mercado segurador, garantindo a <strong className="text-cobre">melhor condicao do mercado</strong> para a sua empresa <strong className="text-white/70">sem que voce tenha que pagar a mais por isso</strong>.
+              A Fairfield atua como <strong className="text-white/70">consultoria em Seguro de Crédito 100% independente</strong> — não representamos nenhuma seguradora. O <strong className="text-sentinel">SENTINEL</strong> é nossa plataforma proprietária que combina <strong className="text-white/70">inteligência artificial</strong> com décadas de experiência no mercado segurador, garantindo a <strong className="text-cobre">melhor condição do mercado</strong> para a sua empresa <strong className="text-white/70">sem que você tenha que pagar a mais por isso</strong>.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <CommitCard
@@ -903,18 +895,17 @@ export default function Home() {
                 color="sentinel"
               />
               <CommitCard
-                title="Analise Tecnica Profunda"
-                text="Comparamos cobertura, premio, franquias e servicos agregados."
+                title="Análise Técnica Profunda"
+                text="Comparamos cobertura, prêmio, franquias e serviços agregados."
                 color="cobre"
               />
               <CommitCard
-                title="Melhor Custo-Beneficio"
-                text="Garantimos acesso as melhores condicoes do mercado."
+                title="Melhor Custo-Benefício"
+                text="Garantimos acesso às melhores condições do mercado."
                 color="emerald"
               />
             </div>
           </section>
-
           {/* Seguradoras parceiras */}
           <section className="mb-8">
             <p className="text-center text-[10px] text-white/30 uppercase tracking-widest font-bold mb-6">Seguradoras parceiras conectadas</p>
@@ -928,7 +919,7 @@ export default function Home() {
               </div>
               <div className="section-divider mt-7" />
               <p className="text-center text-sm text-white/40 mt-5">
-                O <span className="text-sentinel font-bold">SENTINEL</span> consulta todas simultaneamente e identifica a <span className="text-cobre font-bold">melhor solucao</span>.
+                O <span className="text-sentinel font-bold">SENTINEL</span> consulta todas simultaneamente e identifica a <span className="text-cobre font-bold">melhor condição</span>.
               </p>
             </div>
           </section>
@@ -942,7 +933,7 @@ export default function Home() {
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              Iniciar Cotacao Gratuita
+              Iniciar Cotação Gratuita
             </button>
             <p className="text-white/15 text-xs mt-3">Sem compromisso · Leva menos de 10 minutos</p>
           </section>
@@ -956,8 +947,8 @@ export default function Home() {
             <div className="flex items-center gap-4">
               <MiniShield size={48} />
               <div>
-                <h2 className="text-2xl sm:text-3xl font-black text-white">Escolha o tipo de operacao</h2>
-                <p className="text-white/35 text-sm">Selecione o formulario adequado ao seu perfil</p>
+                <h2 className="text-2xl sm:text-3xl font-black text-white">Escolha o tipo de operação</h2>
+                <p className="text-white/35 text-sm">Selecione o formulário adequado ao seu perfil</p>
               </div>
             </div>
             <button onClick={() => setStarted(false)}
@@ -968,6 +959,16 @@ export default function Home() {
               Voltar
             </button>
           </div>
+          <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="rounded-xl border border-sentinel/15 bg-sentinel/[0.04] p-4">
+              <p className="text-sm font-bold text-sentinel">Proposta rápida</p>
+              <p className="text-xs text-white/40 mt-1">Baseada em IA com propostas locais.</p>
+            </div>
+            <div className="rounded-xl border border-cobre/15 bg-cobre/[0.04] p-4">
+              <p className="text-sm font-bold text-cobre">Proposta completa</p>
+              <p className="text-xs text-white/40 mt-1">Direto na seguradora (5 dias).</p>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Card Interno */}
@@ -975,15 +976,15 @@ export default function Home() {
               <div className="rounded-xl bg-gradient-to-br from-sentinel/10 to-transparent p-5 mb-5 flex items-center justify-center">
                 <TechBrazilMap />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 group-hover:text-sentinel transition-colors">Credito Interno</h3>
-              <p className="text-base text-cobre font-semibold mb-3">Operacoes Nacionais (Brasil)</p>
+              <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 group-hover:text-sentinel transition-colors">Crédito Interno</h3>
+              <p className="text-base text-cobre font-semibold mb-3">Operações Nacionais (Brasil)</p>
               <p className="text-white/40 text-base flex-1 leading-relaxed">
-                Protecao para vendas a prazo no mercado brasileiro. Cobertura contra inadimplencia de compradores nacionais.
+                Proteção para vendas a prazo no mercado brasileiro. Cobertura contra inadimplência de compradores nacionais.
               </p>
               <div className="mt-5 pt-4 border-t border-white/[0.06]">
                 <ul className="text-sm text-white/30 space-y-1.5">
                   <li>• Valores em Reais (R$)</li>
-                  <li>• Ate 20 compradores na amostra</li>
+                  <li>• Até 20 compradores na amostra</li>
                   <li>• Detalhamento de perdas por faixa</li>
                 </ul>
               </div>
@@ -997,16 +998,16 @@ export default function Home() {
               <div className="rounded-xl bg-gradient-to-br from-cobre/10 to-transparent p-5 mb-5 flex items-center justify-center">
                 <TechGlobe />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 group-hover:text-cobre transition-colors">Credito Externo</h3>
-              <p className="text-base text-cobre font-semibold mb-3">Operacoes de Exportacao</p>
+              <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 group-hover:text-cobre transition-colors">Crédito Externo</h3>
+              <p className="text-base text-cobre font-semibold mb-3">Operações de Exportação</p>
               <p className="text-white/40 text-base flex-1 leading-relaxed">
-                Protecao para vendas internacionais. Cobertura contra inadimplencia de importadores estrangeiros.
+                Proteção para vendas internacionais. Cobertura contra inadimplência de importadores estrangeiros.
               </p>
               <div className="mt-5 pt-4 border-t border-white/[0.06]">
                 <ul className="text-sm text-white/30 space-y-1.5">
-                  <li>• Valores em Dolares (US$)</li>
-                  <li>• Distribuicao por continente/pais</li>
-                  <li>• Ate 10 compradores na amostra</li>
+                  <li>• Valores em Dólares (US$)</li>
+                  <li>• Distribuição por continente/país</li>
+                  <li>• Até 10 compradores na amostra</li>
                 </ul>
               </div>
               <div className="mt-5 btn-accent text-center text-base">
@@ -1021,7 +1022,7 @@ export default function Home() {
               <svg className="w-3.5 h-3.5 text-accent-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
-              <span className="text-sm text-accent-emerald font-medium">100% gratuito e sem compromisso — seus dados sao protegidos pela LGPD</span>
+              <span className="text-sm text-accent-emerald font-medium">100% gratuito e sem compromisso — seus dados são protegidos pela LGPD</span>
             </div>
           </div>
 
@@ -1039,13 +1040,13 @@ export default function Home() {
               </div>
             </div>
             <p className="text-white/35 text-base leading-relaxed mb-4">
-              Todas as informacoes sao estritamente confidenciais e protegidas por contrato de sigilo. Seus dados nunca serao compartilhados alem do necessario para a cotacao.
+              Todas as informações são estritamente confidenciais e protegidas por contrato de sigilo. Seus dados nunca serão compartilhados além do necessário para a cotação.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {[
                 "Dados utilizados exclusivamente para estudo de mercado",
                 "Sigilo absoluto sobre dados financeiros e comerciais",
-                "Nenhuma informacao compartilhada sem autorizacao",
+                "Nenhuma informação compartilhada sem autorização",
                 "Dados pessoais protegidos nos termos da LGPD"
               ].map((t) => (
                 <div key={t} className="flex items-start gap-2 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">

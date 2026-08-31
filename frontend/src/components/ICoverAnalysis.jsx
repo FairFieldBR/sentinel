@@ -17,7 +17,7 @@ function AnalysisAnimation({ onComplete }) {
     { label: 'Avaliando histórico de crédito...', icon: '📊' },
     { label: 'Calculando taxa base do setor...', icon: '🔢' },
     { label: 'Processando fatores de ajuste...', icon: '⚙️' },
-    { label: 'Aplicando bonus/malus...', icon: '📈' },
+    { label: 'Aplicando bônus/malus...', icon: '📈' },
     { label: 'Definindo estrutura de cobertura...', icon: '🛡️' },
     { label: 'Ranking de seguradoras...', icon: '🏆' },
     { label: 'Gerando relatório iCover...', icon: '✨' },
@@ -76,7 +76,7 @@ function AnalysisAnimation({ onComplete }) {
       </div>
 
       {/* Título */}
-      <h2 className="text-2xl font-black text-navy mb-2">iCover Analisando</h2>
+      <h2 className="text-2xl font-black text-navy mb-2">Análise iCover</h2>
       <p className="text-navy/40 text-sm mb-8">Motor de subscrição inteligente SENTINEL</p>
 
       {/* Barra de progresso */}
@@ -208,7 +208,7 @@ function InsurerCard({ insurer, rank }) {
 }
 
 // ─── Componente Principal: Resultados ────────────────────────
-function AnalysisResults({ analysis, onAccept, onDecline, tipo }) {
+function AnalysisResults({ analysis, onAccept, onDecline, tipo, submitting = false }) {
   const [showDetails, setShowDetails] = useState(false)
   const symbol = analysis.metrics.symbol
 
@@ -387,15 +387,17 @@ function AnalysisResults({ analysis, onAccept, onDecline, tipo }) {
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <button
           onClick={onAccept}
-          className="px-8 py-4 bg-gradient-to-r from-sentinel-dark to-sentinel text-navy-dark rounded-2xl font-bold text-base shadow-lg shadow-sentinel/15 hover:shadow-xl hover:shadow-sentinel/25 hover:scale-[1.02] transition-all"
+          disabled={submitting}
+          className="px-8 py-4 bg-gradient-to-r from-sentinel-dark to-sentinel text-navy-dark rounded-2xl font-bold text-base shadow-lg shadow-sentinel/15 hover:shadow-xl hover:shadow-sentinel/25 hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
-          ✓ Aceitar e Prosseguir com Cotação
+          {submitting ? 'Enviando cotação...' : '✓ Aceitar e prosseguir com cotação'}
         </button>
         <button
           onClick={onDecline}
-          className="px-8 py-4 border border-navy/10 text-navy/50 rounded-2xl font-semibold text-sm hover:bg-navy/[0.03] transition-all"
+          disabled={submitting}
+          className="px-8 py-4 border border-navy/10 text-navy/50 rounded-2xl font-semibold text-sm hover:bg-navy/[0.03] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Analisar meu Score de Crédito →
+          Analisar meu score de crédito →
         </button>
       </div>
 
@@ -408,7 +410,7 @@ function AnalysisResults({ analysis, onAccept, onDecline, tipo }) {
 }
 
 // ─── Componente Wrapper ──────────────────────────────────────
-export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline }) {
+export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline, submitting = false }) {
   const [phase, setPhase] = useState('analyzing') // analyzing | results
   const [analysis, setAnalysis] = useState(null)
   const analysisRef = useRef(null)
@@ -438,7 +440,6 @@ export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline }
         console.error('Erro na análise iCover:', err)
       }
 
-      // Se a animação já terminou quando a análise ficou pronta, avançar
       if (animationDoneRef.current) {
         setPhase('results')
       }
@@ -451,11 +452,10 @@ export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline }
     if (analysisRef.current) {
       setPhase('results')
     }
-    // Se a análise ainda não chegou, o useEffect acima cuidará da transição
   }
 
   function handleAccept() {
-    onComplete(analysis)
+    if (!submitting && analysis) onComplete(analysis)
   }
 
   function handleDecline() {
@@ -468,7 +468,7 @@ export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline }
   }
 
   if (analysis) {
-    return <AnalysisResults analysis={analysis} onAccept={handleAccept} onDecline={handleDecline} tipo={tipo} />
+    return <AnalysisResults analysis={analysis} onAccept={handleAccept} onDecline={handleDecline} tipo={tipo} submitting={submitting} />
   }
 
   return <AnalysisAnimation onComplete={handleAnalysisComplete} />

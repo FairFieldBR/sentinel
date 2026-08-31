@@ -170,6 +170,7 @@ export default function IntakeExterno() {
         tipo="externo"
         onComplete={handleICoverAccept}
         onDecline={handleICoverDecline}
+        submitting={loading}
       />
     </div>
   )
@@ -198,7 +199,7 @@ export default function IntakeExterno() {
               <div>
                 <p className="text-[10px] font-bold text-green-400 uppercase tracking-widest mb-0.5">Quase lá!</p>
                 <h3 className="text-base sm:text-lg font-bold text-white leading-tight">Revisão Final dos Dados</h3>
-                <p className="text-xs text-white/60">Confirme as informações antes de enviar para as 7 seguradoras</p>
+                <p className="text-xs text-white/60">Confirme as informações antes de enviar para todas as seguradoras do mercado</p>
               </div>
             </div>
 
@@ -339,7 +340,7 @@ export default function IntakeExterno() {
                     hint="Incluindo vendas com Carta de Crédito"
                   />
                   <Input
-                    label="À Prazo (%)"
+                    label="A Prazo (%)"
                     value={form.condicoesVenda.pct_prazo}
                     onChange={v => u('condicoesVenda', 'pct_prazo', v)}
                     placeholder="%"
@@ -503,7 +504,7 @@ function FairfieldValueProp() {
   const steps = [
     {
       num: '1', label: 'Análise simultânea',
-      text: '7 seguradoras consultadas ao mesmo tempo — Coface, Atradius, AVLA, Allianz Trade, AIG, CESCE e CHUBB',
+      text: 'Todas as seguradoras do mercado são consultadas simultaneamente para encontrar a melhor condição.',
       icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></>
     },
     {

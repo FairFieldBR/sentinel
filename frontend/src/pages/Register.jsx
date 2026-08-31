@@ -33,12 +33,12 @@ export default function Register() {
   function validate() {
     const errs = {}
     if (!form.nome.trim()) errs.nome = 'Informe seu nome completo'
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = 'E-mail invalido'
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = 'E-mail inválido'
     if (!form.empresa.trim()) errs.empresa = 'Informe a empresa'
-    if (form.cnpj.replace(/\D/g, '').length !== 14) errs.cnpj = 'CNPJ invalido'
-    if (form.telefone.replace(/\D/g, '').length < 10) errs.telefone = 'Telefone invalido'
-    if (form.senha.length < 6) errs.senha = 'Minimo 6 caracteres'
-    if (form.senha !== form.confirmarSenha) errs.confirmarSenha = 'Senhas nao conferem'
+    if (form.cnpj.replace(/\D/g, '').length !== 14) errs.cnpj = 'CNPJ inválido'
+    if (form.telefone.replace(/\D/g, '').length < 10) errs.telefone = 'Telefone inválido'
+    if (form.senha.length < 6) errs.senha = 'Mínimo 6 caracteres'
+    if (form.senha !== form.confirmarSenha) errs.confirmarSenha = 'Senhas não conferem'
     if (!form.termos) errs.termos = 'Aceite os termos para continuar'
     setErrors(errs)
     return Object.keys(errs).length === 0
