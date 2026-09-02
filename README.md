@@ -87,10 +87,42 @@ package.json
 
 ## Deploy
 
-O build gera a pasta `dist/`, que pode ser publicado em qualquer hospedagem de arquivos estáticos compatível com SPA. Configure o fallback de rotas para `index.html`.
+### Plesk com Phusion Passenger
+
+O `server.js` serve o build de `dist/` com Express. Ele recusa execução
+sem ambiente de produção, portanto não substitui o Vite em desenvolvimento.
+
+Gere o build na raiz do projeto:
 
 ```bash
+npm ci
 npm run build
+```
+
+No Plesk, configure:
+
+- **Application root**: raiz deste repositório;
+- **Document root**: `dist` (quando o Plesk permitir servir estático diretamente);
+- **Application startup file**: `server.js`;
+- **Application mode**: `production`;
+- **Node.js**: versão 18 ou superior;
+- **Environment variable**: `NODE_ENV=production`.
+
+O Passenger fornece automaticamente a variável `PORT`. Não defina essa porta
+manualmente.
+
+Após o build, reinicie a aplicação pelo botão **Restart App** do Plesk.
+
+Healthcheck:
+
+```http
+GET /health
+```
+
+Para desenvolvimento, use somente:
+
+```bash
+npm run dev
 ```
 
 A API, banco de dados, autenticação e envio de e-mails não fazem parte deste repositório.
