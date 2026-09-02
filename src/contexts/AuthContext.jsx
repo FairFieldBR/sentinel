@@ -65,9 +65,10 @@ export function AuthProvider({ children }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refresh_token: rt })
       })
-      if (data.access_token) {
+      const token = data.access_token || data.data?.access_token
+      if (token) {
         handleAuthResponse(data)
-        return true
+        return token
       }
       return false
     } catch {
@@ -190,10 +191,10 @@ export function AuthProvider({ children }) {
       if (err.message && (err.message.includes('401') || err.message.includes('Unauthorized'))) {
         const refreshed = await refreshTokenFn()
         if (refreshed) {
-          // Retry with new token
+          // Retry with the token returned by the refresh request.
           const newHeaders = {
             ...options.headers,
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${refreshed}`
           }
           return apiFetch(url, { ...options, headers: newHeaders })
         }

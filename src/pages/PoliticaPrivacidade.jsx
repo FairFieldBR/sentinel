@@ -94,7 +94,7 @@ export default function PoliticaPrivacidade() {
           Seus dados pessoais e empresariais podem ser compartilhados com:
           <ul className="mt-2 space-y-1 list-disc pl-5 text-white/60">
             <li><strong className="text-white/80">Seguradoras parceiras</strong> — exclusivamente para fins de cotacao e emissao de apolice (AIG, Atradius, Coface, Allianz Trade, AVLA, CESCE)</li>
-            <li><strong className="text-white/80">Provedores de tecnologia</strong> — hospedagem (Vercel), banco de dados, envio de email (SMTP)</li>
+            <li><strong className="text-white/80">Provedores de tecnologia</strong> — hospedagem da aplicação, banco de dados e envio de e-mail (SMTP)</li>
             <li><strong className="text-white/80">Autoridades publicas</strong> — quando exigido por lei ou ordem judicial</li>
           </ul>
           <p className="mt-2 text-xs text-white/40">

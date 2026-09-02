@@ -1,10 +1,12 @@
-# Fairfield Cotação
+# SENTINEL — Frontend
 
-Plataforma web para cotação de seguro de crédito — Fairfield Corretora.
+Interface web da plataforma Fairfield para cotação de Seguro de Crédito.
 
-## Pré-requisitos
+Este repositório contém somente o frontend. A API é mantida separadamente em outro repositório e é consumida pela variável `VITE_API_URL`.
 
-- **Node.js 18+** (recomendado: 20 LTS)
+## Requisitos
+
+- Node.js 18+
 - npm 9+
 
 ## Instalação
@@ -15,51 +17,80 @@ npm install
 
 ## Configuração
 
-Copie o arquivo de variáveis de ambiente:
-
 ```bash
-cp .env.example .env
+cp .env.example .env.local
 ```
 
-Edite o `.env` com suas configurações SMTP (opcional — o sistema funciona sem e-mail configurado, apenas logando no console).
+Configure a URL da API:
 
-### Variáveis Disponíveis
+```env
+VITE_API_URL=https://sentinelapi.40405050.xyz
+```
 
-| Variável | Descrição | Padrão |
-|----------|-----------|--------|
-| `SMTP_HOST` | Servidor SMTP | smtp.gmail.com |
-| `SMTP_PORT` | Porta SMTP | 587 |
-| `SMTP_USER` | Usuário SMTP | — |
-| `SMTP_PASS` | Senha SMTP | — |
-| `SMTP_FROM` | E-mail remetente | — |
-| `BROKER_EMAIL` | E-mail do broker | — |
-| `PORT` | Porta do backend | 3001 |
+Em desenvolvimento, quando a API estiver disponível na porta 3001, o proxy do Vite pode ser usado mantendo `VITE_API_URL` vazio.
 
-## Executando
+## Desenvolvimento
 
 ```bash
 npm run dev
 ```
 
-Isso inicia simultaneamente:
-- **Backend**: http://localhost:3001
-- **Frontend**: http://localhost:3000
+O frontend inicia em `http://localhost:3000`.
 
-## Módulos
+## Build
 
-### 1. Portal de Intake (`/`)
-Formulário wizard em 4 etapas para o prospect solicitar cotação de seguro de crédito.
+```bash
+npm run build
+```
 
-### 2. Dashboard (`/dashboard`)
-Pipeline de cotações com gestão de status por seguradora.
+Pré-visualização do build:
 
-### 3. Painel de SLA (`/sla`)
-Acompanhamento de SLA por seguradora com alertas visuais (semáforo).
+```bash
+npm run preview
+```
 
-## Stack Técnica
+## Áreas da aplicação
 
-- **Backend**: Node.js + Express.js
-- **Frontend**: React (Vite) + Tailwind CSS
-- **Banco de dados**: SQLite (better-sqlite3)
-- **Excel**: ExcelJS
-- **E-mail**: Nodemailer
+### Cliente
+
+- Portal de cotação;
+- Meu Painel;
+- Cotação rápida;
+- Histórico das próprias cotações;
+- Propostas e mensagens.
+
+### Administração
+
+A área administrativa fica centralizada em `/admin` e reúne:
+
+- Dashboard operacional;
+- Cotações rápidas;
+- SLA;
+- Memória da cotação;
+- Seguradoras;
+- iCover IA;
+- Central de envios;
+- Lembretes.
+
+## Estrutura
+
+```text
+src/
+  components/
+  contexts/
+  pages/
+public/
+index.html
+vite.config.js
+package.json
+```
+
+## Deploy
+
+O build gera a pasta `dist/`, que pode ser publicado em qualquer hospedagem de arquivos estáticos compatível com SPA. Configure o fallback de rotas para `index.html`.
+
+```bash
+npm run build
+```
+
+A API, banco de dados, autenticação e envio de e-mails não fazem parte deste repositório.

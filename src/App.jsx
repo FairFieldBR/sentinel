@@ -13,6 +13,9 @@ import IntakeInterno from './pages/IntakeInterno'
 import IntakeExterno from './pages/IntakeExterno'
 import Dashboard from './pages/Dashboard'
 import QuickQuotes from './pages/QuickQuotes'
+import QuickQuoteMemory from './pages/QuickQuoteMemory'
+import ClientQuickQuotes from './pages/ClientQuickQuotes'
+import AdminDashboard from './pages/AdminDashboard'
 import IcoverAdmin from './pages/IcoverAdmin'
 import SLA from './pages/SLA'
 import ICoverChat from './pages/ICoverChat'
@@ -134,7 +137,7 @@ function AppContent() {
   const isQuoteStaff = ['admin', 'broker'].includes(user?.role)
   const isAdmin = user?.role === 'admin'
   const isHome = location.pathname === '/'
-  const isIntake = location.pathname.startsWith('/cotacao')
+  const isIntake = ['/cotacao/interno', '/cotacao/externo'].includes(location.pathname)
   const isICover = location.pathname === '/icover'
   const [homeStarted, setHomeStarted] = useState(false)
 
@@ -194,35 +197,31 @@ function AppContent() {
 
               {/* Meu Painel link for authenticated users */}
               {isAuthenticated && !isAdmin && (
-                <NavLink to="/meu-painel" className={({ isActive }) =>
-                  `hidden sm:inline-flex px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
-                    isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'
-                  }`
-                }>
-                  Meu Painel
-                </NavLink>
-              )}
-
-              {isAdmin && (
                 <>
-                  <NavLink to="/dashboard" className={({ isActive }) =>
-                    `px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
-                  }>Dashboard</NavLink>
-                  <NavLink to="/admin/seguradoras" className={({ isActive }) =>
-                    `hidden md:inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
-                  }>Seguradoras</NavLink>
-                  <NavLink to="/admin/central-envios" className={({ isActive }) =>
-                    `hidden md:inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
-                  }>Envios</NavLink>
-                  <NavLink to="/sla" className={({ isActive }) =>
-                    `hidden md:inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
-                  }>SLA</NavLink>
-                  <NavLink to="/admin/icover" className={({ isActive }) =>
-                    `hidden lg:inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
-                  }>iCover IA</NavLink>
+                  <NavLink to="/meu-painel" className={({ isActive }) =>
+                    `hidden sm:inline-flex px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                      isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'
+                    }`
+                  }>
+                    Meu Painel
+                  </NavLink>
+                  <NavLink to="/cotacao-rapida" className={({ isActive }) =>
+                    `hidden sm:inline-flex px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                      isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'
+                    }`
+                  }>
+                    Cotação rápida
+                  </NavLink>
                 </>
               )}
-              {isQuoteStaff && (
+              {isAdmin && (
+                <NavLink to="/admin" className={({ isActive }) =>
+                  `px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
+                }>
+                  Painel admin
+                </NavLink>
+              )}
+              {isQuoteStaff && !isAdmin && (
                 <NavLink to="/admin/cotacoes-rapidas" className={({ isActive }) =>
                   `hidden md:inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${isActive ? 'bg-sentinel/15 text-sentinel border border-sentinel/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`
                 }>Cotações rápidas</NavLink>
@@ -262,9 +261,11 @@ function AppContent() {
             <Route path="/icover" element={<ICoverChat />} />
             <Route path="/cotacao/interno" element={<IntakeInterno />} />
             <Route path="/cotacao/externo" element={<IntakeExterno />} />
+            <Route path="/cotacao-rapida" element={<ProtectedRoute><ClientQuickQuotes /></ProtectedRoute>} />
+            <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             <Route path="/dashboard" element={<AdminRoute><Dashboard /></AdminRoute>} />
             <Route path="/admin/cotacoes-rapidas" element={<QuoteStaffRoute><QuickQuotes /></QuoteStaffRoute>} />
-            <Route path="/admin/icover" element={<AdminRoute><IcoverAdmin /></AdminRoute>} />
+            <Route path="/admin/cotacoes-rapidas/memoria" element={<AdminRoute><QuickQuoteMemory /></AdminRoute>} />
             <Route path="/sla" element={<AdminRoute><SLA /></AdminRoute>} />
             <Route path="/admin/seguradoras" element={<AdminRoute><SeguradorasManager /></AdminRoute>} />
             <Route path="/admin/cotacoes/:id" element={<AdminRoute><AdminQuotationDetail /></AdminRoute>} />

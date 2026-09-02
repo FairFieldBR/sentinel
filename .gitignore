@@ -1,8 +1,7 @@
 node_modules/
 dist/
 .env
-*.db
-backend/arquivos/
+.env.local
+.env.*.local
+*.log
 .DS_Store
-nda_unpack/
-.vercel

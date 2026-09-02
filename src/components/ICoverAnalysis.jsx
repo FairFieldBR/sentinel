@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { MiniShield } from '../pages/Home'
+import FourScoreSuggestion from './FourScoreSuggestion'
 
 /**
  * ══════════════════════════════════════════════════════════════
@@ -413,6 +414,7 @@ function AnalysisResults({ analysis, onAccept, onDecline, tipo, submitting = fal
 export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline, submitting = false }) {
   const [phase, setPhase] = useState('analyzing') // analyzing | results
   const [analysis, setAnalysis] = useState(null)
+  const [showFourScore, setShowFourScore] = useState(false)
   const analysisRef = useRef(null)
   const animationDoneRef = useRef(false)
 
@@ -420,7 +422,6 @@ export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline, 
     async function runAnalysis() {
       try {
         const body = { tipo, ...formData, seguradoras: [] }
-
         try {
           const { apiFetch } = await import('../config')
           const result = await apiFetch('/api/underwriting/analyze', {
@@ -440,18 +441,14 @@ export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline, 
         console.error('Erro na análise iCover:', err)
       }
 
-      if (animationDoneRef.current) {
-        setPhase('results')
-      }
+      if (animationDoneRef.current) setPhase('results')
     }
     runAnalysis()
   }, [])
 
   function handleAnalysisComplete() {
     animationDoneRef.current = true
-    if (analysisRef.current) {
-      setPhase('results')
-    }
+    if (analysisRef.current) setPhase('results')
   }
 
   function handleAccept() {
@@ -459,19 +456,23 @@ export default function ICoverAnalysis({ formData, tipo, onComplete, onDecline, 
   }
 
   function handleDecline() {
+    setShowFourScore(true)
+  }
+
+  function continueToFourScore() {
+    setShowFourScore(false)
     if (onDecline) onDecline()
-    else window.open('https://www.4score.com.br', '_blank')
+    else window.open('https://www.4score.com.br', '_blank', 'noopener,noreferrer')
   }
 
-  if (phase === 'analyzing') {
-    return <AnalysisAnimation onComplete={handleAnalysisComplete} />
-  }
+  if (phase === 'analyzing') return <AnalysisAnimation onComplete={handleAnalysisComplete} />
 
-  if (analysis) {
-    return <AnalysisResults analysis={analysis} onAccept={handleAccept} onDecline={handleDecline} tipo={tipo} submitting={submitting} />
-  }
-
-  return <AnalysisAnimation onComplete={handleAnalysisComplete} />
+  return (
+    <>
+      {analysis ? <AnalysisResults analysis={analysis} onAccept={handleAccept} onDecline={handleDecline} tipo={tipo} submitting={submitting} /> : <AnalysisAnimation onComplete={handleAnalysisComplete} />}
+      {showFourScore && <FourScoreSuggestion onContinue={continueToFourScore} onClose={() => setShowFourScore(false)} />}
+    </>
+  )
 }
 
 // ─── Análise Avançada (fallback sem API) — Motor iCover v2.0 ───
